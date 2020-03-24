@@ -9,7 +9,7 @@ import (
 
 func main() {
 	app := &cli.App{
-		Version: "1.0.0",
+		Version: "1.0.1",
 		Name:    "XLS to CSV converter",
 		Usage:   "xls2csv -i in.xls -o out.csv",
 		Action:  action.Xls2Csv(),
