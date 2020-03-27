@@ -80,7 +80,11 @@ func Xls2Csv() cli.ActionFunc {
 		if err != nil {
 			return err
 		}
-		defer func() { _ = outputFile.Close() }()
+		defer func() {
+			if err := outputFile.Close(); err != nil {
+				_, _ = fmt.Fprintf(c.App.Writer, "[!] output file save error: %s", err.Error())
+			}
+		}()
 
 		sep := []rune(c.String(SeparatorCharacterFlag))
 

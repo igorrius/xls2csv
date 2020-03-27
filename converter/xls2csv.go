@@ -32,7 +32,7 @@ func (j *Xls2CsvJob) SheetName() string {
 	return j.xls.GetSheetMap()[j.xls.GetActiveSheetIndex()]
 }
 
-func NewXls2CsvJob(input io.Reader, output io.WriteCloser, sheetName string, sheetNumber int, separator rune) *Xls2CsvJob {
+func NewXls2CsvJob(input io.Reader, output io.Writer, sheetName string, sheetNumber int, separator rune) *Xls2CsvJob {
 	xls, err := excelize.OpenReader(input)
 	if err != nil {
 		panic(err)
@@ -69,6 +69,8 @@ func convertXls2Csv(xls *excelize.File, csvWriter *csv.Writer, sheetName string)
 			return err
 		}
 	}
+
+	csvWriter.Flush()
 
 	return nil
 }
